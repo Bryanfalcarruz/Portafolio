@@ -1,8 +1,12 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import os
 
 def leer_coordenadas(nombre_archivo):
-    archivo = open(nombre_archivo)
+    ruta_base = os.path.dirname(__file__)  # Carpeta donde está este script
+    ruta_archivo = os.path.join(ruta_base, "datos", nombre_archivo)
+
+    archivo = open(ruta_archivo)
     lista = []
     linea = archivo.readline()
     while linea != "":

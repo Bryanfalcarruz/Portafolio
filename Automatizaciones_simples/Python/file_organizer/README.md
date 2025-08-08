@@ -9,7 +9,7 @@ Script de automatización en Python que organiza archivos en una carpeta según 
 
 ---
 
-## ¿Qué hace?
+## Función
 
 - Analiza los archivos de una carpeta especificada por el usuario.
 - Detecta su extensión y los clasifica como:
@@ -22,22 +22,20 @@ Script de automatización en Python que organiza archivos en una carpeta según 
 
 ## Cómo se usa
 
-1. Ejecutar el script:
-   ```bash
-   python organizer.py
+1. Ejecutar el script en terminal:
+
+python organizer.py
+
 Ingresar la ruta completa de la carpeta que deseas organizar.
 
 Ejemplos:
-
-En Windows:
+  -En Windows:
 C:/Users/TuUsuario/Downloads
-
-En Linux o macOS:
+  -En Linux o macOS:
 /home/usuario/Descargas
 
 ## Estructura generada
-nginx
-Copiar código
+
 Carpeta original/
 ├── Images/
 ├── Documents/
@@ -61,17 +59,12 @@ Módulos estándar: os, shutil
 Python automation script that organizes files in a folder by type, moving them into specific subfolders. It is cross-platform (Windows, Linux, macOS) and requires no external dependencies.
 
 ## What it does
-Scans the files in a folder specified by the user.
-
-Detects their extensions and classifies them as:
-
-Images, Documents, Videos, Music, or Others.
-
-Creates folders if they do not exist.
-
-Moves each file to the appropriate folder.
-
-Displays a summary when finished.
+-Scans the files in a folder specified by the user.
+-Detects their extensions and classifies them as:
+-Images, Documents, Videos, Music, or Others.
+-Creates folders if they do not exist.
+-Moves each file to the appropriate folder.
+-Displays a summary when finished.
 
 ## How to use
 Run the script: 
@@ -95,13 +88,9 @@ Original folder/
 
 Technologies used
 Python 3
-
 Standard modules: os, shutil
 
 ## Possible use cases
-
-Automatically organize download folders.
-
-Classify files on USB drives or shared folders.
-
-Automate file cleanup on personal or work computers.
+-Automatically organize download folders.
+-Classify files on USB drives or shared folders.
+-Automate file cleanup on personal or work computers.
