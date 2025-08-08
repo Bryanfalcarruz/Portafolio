@@ -4,7 +4,7 @@ Este programa simula una **caminata aleatoria** sobre una cuadrícula de tamaño
 
 ---
 
-## 📌 Descripción
+## Descripción
 
 En cada paso, el caminante puede moverse **arriba**, **abajo**, **izquierda** o **derecha** con igual probabilidad (`0.25`).  
 La simulación termina cuando se alcanza cualquier punto en el borde de la cuadrícula.
@@ -17,7 +17,7 @@ El programa muestra:
 
 ---
 
-## 🔹 Estructura del código
+## Estructura del código
 
 - **`genera_caminata(n)`**  
   Genera la lista de coordenadas recorridas desde `(0, 0)` hasta un borde de la cuadrícula.
@@ -32,7 +32,7 @@ El programa muestra:
 
 ---
 
-## 💻 Ejemplo de ejecución
+## Ejemplo de ejecución
 
 Entrada:
 ```
@@ -56,26 +56,11 @@ ooooxoo
 
 ---
 
-## 📊 Complejidad
-- La simulación no tiene un número fijo de pasos; la cantidad depende de `n` y de las decisiones aleatorias.
-- En promedio, el tiempo de ejecución crece de forma proporcional al área de la cuadrícula.
 
----
+## Ejecución
 
-## ▶️ Ejecución
+grese un número entero positivo `n`, que define la **distancia máxima desde el centro hasta cualquier borde de la cuadrícula**.  
+El campo de juego tendrá un tamaño de `2n + 1` puntos por lado.  
 
-En consola:
-```bash
-python caminata.py
-```
-Luego ingrese un número entero positivo para iniciar la simulación.
-
----
-
-## 📂 Ubicación sugerida en el portafolio
-```
-problemas_logicos/
-└── caminata_aleatoria/
-    ├── caminata.py
-    └── README.md
-```
+Por ejemplo:
+- Si `n = 3`, la cuadrícula abarcará desde la coordenada `(-3, -3)` hasta `(3, 3)`, formando un campo de 7 × 7 puntos.
