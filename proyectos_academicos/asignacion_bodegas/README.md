@@ -1,7 +1,7 @@
 # Asignación de bodegas a clientes
 
 Este proyecto fue desarrollado como parte de una asignatura de **Fundamentos de la Programación**, cuyo objetivo era introducir conceptos básicos de lógica computacional, estructuras de control y algoritmos.  
-No fue pensado como un curso de Python, por lo que se evitó el uso de funciones avanzadas, bibliotecas externas o estructuras propias del lenguaje. Con la excepción de herramientas indispensables para la visualización —como matplotlib— se procuró mantener el código lo más general posible, de modo que su lógica pueda ser comprendida y adaptada a otros lenguajes de programación.
+No fue pensado como un curso de Python, por lo que se evitó el uso de funciones avanzadas, bibliotecas externas o estructuras propias del lenguaje. Con la excepción de herramientas indispensables para la visualización —como matplotlib— se procuró mantener el código lo más general posible.
 
 ## Descripción del proyecto
 
