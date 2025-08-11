@@ -13,8 +13,3 @@ Servir como referencia técnica para implementaciones futuras y como ejemplo pr�
 
 ## Contenido de la carpeta
 - **Creación DB Aurora MySQL en RDS.pdf** — Documento con capturas y pasos detallados.
-
-## Requisitos para replicar
-- Cuenta de AWS con permisos para crear instancias RDS.
-- Un servidor Linux con cliente MySQL instalado.
-- Configuración de grupos de seguridad para habilitar el acceso a la base de datos.
