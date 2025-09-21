@@ -1,41 +1,60 @@
-Este archivo está disponible en español e inglés.  
-This file is available in Spanish and English.
-
----
-
 # Organizador de Archivos (File Organizer)
 
-Script de automatización en Python que organiza archivos en una carpeta según su tipo, moviéndolos a subcarpetas específicas. Es multiplataforma (Windows, Linux, macOS) y no requiere dependencias externas.
+Script de automatización en Python que organiza archivos en una carpeta según su tipo, moviéndolos a subcarpetas específicas.  
+Es multiplataforma (Windows, Linux, macOS) y no requiere dependencias externas.
 
 ---
 
 ## Función
 
-- Analiza los archivos de una carpeta especificada por el usuario.
+- Analiza los archivos de una carpeta especificada por el usuario mediante el parámetro `--path`.
 - Detecta su extensión y los clasifica como:
   - Imágenes, Documentos, Videos, Música u Otros.
 - Crea carpetas si no existen.
 - Mueve cada archivo a la carpeta correspondiente.
+- Permite ejecutar en **modo simulación** con `--dry-run`, mostrando lo que haría sin mover nada.
+- Permite **excluir archivos** por patrón con `--exclude` (ejemplo: `*.tmp *.part`).
+  - Si no se especifica, aplica exclusiones por defecto: `*.tmp`, `*.part`, `*.crdownload`, `Thumbs.db`, `.DS_Store`.
 - Muestra un resumen al finalizar.
 
 ---
 
 ## Cómo se usa
 
-1. Ejecutar el script en terminal:
 
-python organizer.py
+Ejecutar el script en terminal:
 
-Ingresar la ruta completa de la carpeta que deseas organizar.
+python organizer.py --path "RUTA/DE/TU/CARPETA"
 
-Ejemplos:
-  -En Windows:
-C:/Users/TuUsuario/Downloads
-  -En Linux o macOS:
-/home/usuario/Descargas
+## Ejemplos
+
+En Windows:
+python organizer.py --path "C:\Users\TuUsuario\Downloads"
+
+En Linux o macOS:
+python organizer.py --path "/home/usuario/Descargas"
+
+## Opciones adicionales
+
+Simulación (dry run):
+python organizer.py --path "C:\Users\TuUsuario\Downloads" --dry-run
+
+Excluir archivos por patrón:
+python organizer.py --path "C:\Users\TuUsuario\Downloads" --exclude *.bak *.old
+
+Manejo de duplicados (--on-collision)
+Define qué hacer si el archivo ya existe en la carpeta de destino:
+  -skip (por defecto): no mueve si existe.
+  -rename: crea un nombre único con sufijo (1), (2), etc.
+  -overwrite: reemplaza el archivo existente.
+
+# Renombrar duplicados
+python organizer.py --path "RUTA/DE/TU/CARPETA" --on-collision rename
+
+# Sobrescribir duplicados
+python organizer.py --path "RUTA/DE/TU/CARPETA" --on-collision overwrite
 
 ## Estructura generada
-
 Carpeta original/
 ├── Images/
 ├── Documents/
@@ -43,54 +62,10 @@ Carpeta original/
 ├── Music/
 └── Others/
 
-Tecnologías utilizadas
-Python3
-
-Módulos estándar: os, shutil
+Python 3
+Módulos estándar: os, shutil, argparse, pathlib, fnmatch
 
 ## Posibles usos
--Ordenar automáticamente carpetas de descargas.
--Clasificar archivos en pendrives o carpetas compartidas.
--Automatizar la limpieza de archivos en equipos personales o de oficina.
-
-----------------------------------------------------------------------------------------
-
-## File Organizer
-Python automation script that organizes files in a folder by type, moving them into specific subfolders. It is cross-platform (Windows, Linux, macOS) and requires no external dependencies.
-
-## What it does
--Scans the files in a folder specified by the user.
--Detects their extensions and classifies them as:
--Images, Documents, Videos, Music, or Others.
--Creates folders if they do not exist.
--Moves each file to the appropriate folder.
--Displays a summary when finished.
-
-## How to use
-Run the script: 
-python organizer.py
-
-Enter the full path of the folder you want to organize.
-
-## Examples:
-
-On Windows: C:/Users/YourUser/Downloads
-On Linux or macOS: /home/youruser/Downloads
-
-## Generated structure
-
-Original folder/
-├── Images/
-├── Documents/
-├── Videos/
-├── Music/
-└── Others/
-
-Technologies used
-Python 3
-Standard modules: os, shutil
-
-## Possible use cases
--Automatically organize download folders.
--Classify files on USB drives or shared folders.
--Automate file cleanup on personal or work computers.
+Ordenar automáticamente carpetas de descargas.
+Clasificar archivos en pendrives o carpetas compartidas.
+Automatizar la limpieza de archivos en equipos personales o de oficina.
