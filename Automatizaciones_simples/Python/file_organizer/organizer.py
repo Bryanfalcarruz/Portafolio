@@ -1,6 +1,7 @@
 import os
 import shutil
 import argparse
+import fnmatch
 from pathlib import Path
 
 FILE_TYPES = {
@@ -10,13 +11,20 @@ FILE_TYPES = {
     "Music": [".mp3", ".wav", ".flac"]
 }
 
-def organize_folder(path: str):
+# Exclusiones por defecto
+DEFAULT_EXCLUDES = ["*.tmp", "*.part", "*.crdownload", "Thumbs.db", ".DS_Store"]
+
+def organize_folder(path: str, exclude=None):
     base = Path(path).expanduser().resolve()
     if not base.exists() or not base.is_dir():
         print(f"Path does not exist or is not a directory: {base}")
         return
 
+    # Si no se pasa nada, usamos la lista por defecto
+    patterns = exclude if exclude else DEFAULT_EXCLUDES
+
     print(f"\nOrganizing folder: {base}")
+    print(f"Excluding patterns: {patterns}")
     files = os.listdir(base)
 
     stats = {}
@@ -26,6 +34,11 @@ def organize_folder(path: str):
         full_path = os.path.join(base, file)
 
         if os.path.isfile(full_path):
+            # Verificar exclusiones
+            if any(fnmatch.fnmatch(file, pattern) for pattern in patterns):
+                print(f"Excluded: {file}")
+                continue
+
             file_ext = os.path.splitext(file)[1].lower()
             moved = False
 
@@ -60,11 +73,16 @@ def parse_args():
         description="Organize files in a folder by category (Images, Documents, etc.)."
     )
     parser.add_argument("--path", required=True, help="Full path of the folder to organize")
+    parser.add_argument(
+        "--exclude",
+        nargs="+",
+        help="File patterns to exclude (e.g. *.tmp *.part). Defaults are used if not provided."
+    )
     return parser.parse_args()
 
 def main():
     args = parse_args()
-    organize_folder(args.path)
+    organize_folder(args.path, exclude=args.exclude)
 
 if __name__ == "__main__":
     main()
