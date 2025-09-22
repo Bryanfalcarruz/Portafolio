@@ -1,96 +1,68 @@
-Este archivo está disponible en español e inglés.  
-This file is available in Spanish and English.
+========================================
+## Organizador de Archivos - Instrucciones
+========================================
 
----
+Este script organiza los archivos de una carpeta según su extensión,
+moviendo cada archivo a subcarpetas (Images, Documents, Videos, Music, Others).
 
-# Organizador de Archivos (File Organizer)
+----------------------------------------
+## Modo de uso
+----------------------------------------
 
-Script de automatización en Python que organiza archivos en una carpeta según su tipo, moviéndolos a subcarpetas específicas. Es multiplataforma (Windows, Linux, macOS) y no requiere dependencias externas.
+Ejecuta en terminal:
 
----
+    python organizer.py --path RUTA [opciones]
 
-## Función
+Donde RUTA es la carpeta que deseas organizar.
 
-- Analiza los archivos de una carpeta especificada por el usuario.
-- Detecta su extensión y los clasifica como:
-  - Imágenes, Documentos, Videos, Música u Otros.
-- Crea carpetas si no existen.
-- Mueve cada archivo a la carpeta correspondiente.
-- Muestra un resumen al finalizar.
+----------------------------------------
+## Opciones disponibles
+----------------------------------------
 
----
+--path RUTA
+    Ruta completa de la carpeta que se organizará. (Obligatorio)
 
-## Cómo se usa
+--dry-run
+    Simula la organización sin mover archivos.
+    Útil para verificar qué pasaría antes de ejecutar realmente.
 
-1. Ejecutar el script en terminal:
+--exclude PATRONES
+    Patrones de archivos a excluir.
+    Ejemplo: --exclude *.tmp *.part
+    Si no se especifica, se aplican exclusiones por defecto:
+    *.tmp, *.part, *.crdownload, Thumbs.db, .DS_Store
 
-python organizer.py
+--on-collision [skip | overwrite | rename]
+    Define qué hacer si un archivo con el mismo nombre ya existe en la carpeta destino.
+    - skip (por defecto): omite mover el archivo.
+    - overwrite: reemplaza el archivo existente.
+    - rename: crea un nuevo nombre único (archivo (1).txt, archivo (2).txt, etc.)
 
-Ingresar la ruta completa de la carpeta que deseas organizar.
+----------------------------------------
+## Ejemplos
+----------------------------------------
 
-Ejemplos:
-  -En Windows:
-C:/Users/TuUsuario/Downloads
-  -En Linux o macOS:
-/home/usuario/Descargas
+1. Organizar la carpeta Descargas:
+    python organizer.py --path "C:/Users/TuUsuario/Downloads"
 
-## Estructura generada
+2. Simular la organización sin mover nada:
+    python organizer.py --path "/home/usuario/Descargas" --dry-run
 
-Carpeta original/
-├── Images/
-├── Documents/
-├── Videos/
-├── Music/
-└── Others/
+3. Excluir archivos temporales y de partes:
+    python organizer.py --path "/home/usuario/Descargas" --exclude *.tmp *.part
 
-Tecnologías utilizadas
-Python3
+4. Sobrescribir archivos duplicados:
+    python organizer.py --path "C:/Users/TuUsuario/Downloads" --on-collision overwrite
 
-Módulos estándar: os, shutil
+5. Renombrar archivos duplicados en lugar de sobrescribirlos:
+    python organizer.py --path "/home/usuario/Descargas" --on-collision rename
 
-## Posibles usos
--Ordenar automáticamente carpetas de descargas.
--Clasificar archivos en pendrives o carpetas compartidas.
--Automatizar la limpieza de archivos en equipos personales o de oficina.
+----------------------------------------
+Resumen
+----------------------------------------
+- Clasifica los archivos en subcarpetas.
+- Acepta exclusiones personalizadas.
+- Permite simular antes de ejecutar.
+- Maneja colisiones de nombre con 3 políticas distintas.
 
-----------------------------------------------------------------------------------------
-
-## File Organizer
-Python automation script that organizes files in a folder by type, moving them into specific subfolders. It is cross-platform (Windows, Linux, macOS) and requires no external dependencies.
-
-## What it does
--Scans the files in a folder specified by the user.
--Detects their extensions and classifies them as:
--Images, Documents, Videos, Music, or Others.
--Creates folders if they do not exist.
--Moves each file to the appropriate folder.
--Displays a summary when finished.
-
-## How to use
-Run the script: 
-python organizer.py
-
-Enter the full path of the folder you want to organize.
-
-## Examples:
-
-On Windows: C:/Users/YourUser/Downloads
-On Linux or macOS: /home/youruser/Downloads
-
-## Generated structure
-
-Original folder/
-├── Images/
-├── Documents/
-├── Videos/
-├── Music/
-└── Others/
-
-Technologies used
-Python 3
-Standard modules: os, shutil
-
-## Possible use cases
--Automatically organize download folders.
--Classify files on USB drives or shared folders.
--Automate file cleanup on personal or work computers.
+========================================
