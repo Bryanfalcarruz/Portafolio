@@ -1,4 +1,3 @@
-Set-Content .\main.tf @'
 resource "random_string" "suffix" {
   length  = 6
   upper   = false
@@ -12,9 +11,8 @@ locals {
     Owner   = "bryan"
   }
 
-  # Nombre único global de bucket S3
+  # S3: nombre único global, cumple reglas de bucket
   tfstate_bucket = "tfstate-${var.project_name}-${random_string.suffix.result}"
-  # Nombre tabla DynamoDB para locking
   lock_table     = "tf-lock-${var.project_name}"
 }
 
@@ -24,34 +22,7 @@ resource "aws_s3_bucket" "tfstate" {
   tags   = local.tags
 }
 
-# Ownership controls: evita líos de ACLs
-resource "aws_s3_bucket_ownership_controls" "this" {
-  bucket = aws_s3_bucket.tfstate.id
-  rule {
-    object_ownership = "BucketOwnerEnforced"
-  }
-}
-
-# Bloqueo de acceso público
-resource "aws_s3_bucket_public_access_block" "this" {
-  bucket                  = aws_s3_bucket.tfstate.id
-  block_public_acls       = true
-  block_public_policy     = true
-  ignore_public_acls      = true
-  restrict_public_buckets = true
-
-  depends_on = [aws_s3_bucket_ownership_controls.this]
-}
-
-# Versionado
-resource "aws_s3_bucket_versioning" "this" {
-  bucket = aws_s3_bucket.tfstate.id
-  versioning_configuration {
-    status = "Enabled"
-  }
-}
-
-# Cifrado en servidor (SSE-S3)
+# Dueño de objetos forzado al bucket (evita problemas con ACLs)
 resource "aws_s3_bucket_server_side_encryption_configuration" "this" {
   bucket = aws_s3_bucket.tfstate.id
 
@@ -60,6 +31,27 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "this" {
       sse_algorithm = "AES256"
     }
   }
+}
+# Bloqueo de acceso público
+resource "aws_s3_bucket_public_access_block" "this" {
+  bucket                  = aws_s3_bucket.tfstate.id
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
+  depends_on = [aws_s3_bucket_ownership_controls.this]
+}
+
+# Versionado
+resource "aws_s3_bucket_versioning" "this" {
+  bucket = aws_s3_bucket.tfstate.id
+  versioning_configuration { status = "Enabled" }
+}
+
+# Cifrado en servidor
+resource "aws_s3_bucket_server_side_encryption_configuration" "this" {
+  bucket = aws_s3_bucket.tfstate.id
+  rule { apply_server_side_encryption_by_default { sse_algorithm = "AES256" } }
 }
 
 # DynamoDB: locking del state
@@ -75,4 +67,3 @@ resource "aws_dynamodb_table" "lock" {
 
   tags = local.tags
 }
-'@
