@@ -30,3 +30,15 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
+
+variable "ecr_repository_url" {
+  description = "URL del repositorio ECR desde donde se hará pull de la imagen"
+  type        = string
+  default     = null
+}
+
+variable "image_tag" {
+  description = "Tag de la imagen a ejecutar"
+  type        = string
+  default     = "latest"
+}
